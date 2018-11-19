@@ -2,7 +2,7 @@
   "name": "my-first-angular",
   "version": "0.0.0",
   "scripts": {
-    "postinstall": "ng build --aot -prod",
+    "postinstall": "ng build -prod",
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
