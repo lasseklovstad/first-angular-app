@@ -19,14 +19,20 @@ export class RutetiderComponent implements OnInit {
   position:Position;
   date = new Date();
   stopsNearBy:Location[];
-
+  geoSupported:boolean;
 
   ngOnInit() {
     this.location="Unknown";
     this.position={latitude:0,longitude:0};
     this.stoppNumber=1;
     this.stopsNearBy=[];
-    navigator.geolocation.getCurrentPosition(this.handleLocation.bind(this));
+    this.geoSupported=true;
+    if(navigator.geolocation){
+      navigator.geolocation.getCurrentPosition(this.handleLocation.bind(this));
+    }else{
+      this.geoSupported=false;
+    }
+
 
 
 
@@ -37,7 +43,7 @@ export class RutetiderComponent implements OnInit {
      for(let location of response.features){
        this.stopsNearBy.push(location.properties);
      }
-     
+
 
    })
 
