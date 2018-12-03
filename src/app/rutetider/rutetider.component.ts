@@ -36,13 +36,8 @@ export class RutetiderComponent implements OnInit {
    this.locationService.getLocation(position.coords.longitude,position.coords.latitude).subscribe((response)=>{
      for(let location of response.features){
        this.stopsNearBy.push(location.properties);
-       this.stopsNearBy = this.stopsNearBy.filter((stop)=>{
-          if(this.stopsNearBy.indexOf(stop.name)==-1){
-            return stop;
-          }
-       })
-
      }
+     
 
    })
 

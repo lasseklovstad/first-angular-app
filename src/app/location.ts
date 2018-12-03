@@ -1,5 +1,5 @@
 export class Location{
   distance:Number;
-  name:String;
-  id:String;
+  name:string;
+  id:string;
 }

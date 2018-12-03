@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import {GeoLocation} from './geoLocation';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class GeolocatorService {
 
   url = 'https://api.entur.org/api/geocoder/1.1/reverse';
 
-  getLocation(longitude: String, latitude: String):Observable{
+  getLocation(longitude: string, latitude: string):Observable<GeoLocation>{
 
     let headers = new HttpHeaders().set('ET-Client-Name', 'experis-academy-test');
     let params = new HttpParams()
@@ -21,7 +22,7 @@ export class GeolocatorService {
       .append('point.lon', longitude);
 
 
-    return this.http.get(this.url, {headers: headers, params: params})
+    return this.http.get<GeoLocation>(this.url, {headers: headers, params: params})
   }
 
 }
