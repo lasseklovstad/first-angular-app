@@ -1,0 +1,12 @@
+.list{
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: row;
+
+}
+button{
+  width: 10rem;
+  margin-right: 1rem;
+}
+
+

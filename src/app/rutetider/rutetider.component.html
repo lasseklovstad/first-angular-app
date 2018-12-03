@@ -1,0 +1,9 @@
+<h1>{{location}}</h1>
+<h2>{{date}}</h2>
+<p>Latitude: {{position.longitude}}</p>
+<p>Longitutde: {{position.latitude}}</p>
+
+<div *ngFor="let stop of stopsNearBy" class="list">
+  <button>{{stop.name}}</button>
+  <p>{{stop.distance}}</p>
+</div>
