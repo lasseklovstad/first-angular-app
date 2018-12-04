@@ -11,7 +11,6 @@ export class RutetiderComponent implements OnInit {
 
   constructor(private locationService: GeolocatorService) {
 
-
   }
 
   location: String;
@@ -28,12 +27,23 @@ export class RutetiderComponent implements OnInit {
     this.stopNumber = 1;
     this.stopsNearBy = [];
     this.geoSupported = true;
-    navigator.geolocation.getCurrentPosition(this.handleLocation.bind(this),this.handleError.bind(this));
+    
+
 
 
   }
 
+  findPosition(){
+
+    if(navigator.geolocation){
+      navigator.geolocation.getCurrentPosition(this.handleLocation.bind(this),this.handleError.bind(this));
+    }else{
+      this.geoSupported=false;
+    }
+  }
+
   private handleLocation(position): void {
+    console.log(this);
     this.position = position.coords;
     this.locationService.getLocation(position.coords.longitude, position.coords.latitude).subscribe((response) => {
       for (let location of response.features) {
