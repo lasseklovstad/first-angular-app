@@ -19,7 +19,7 @@ export class RutetiderComponent implements OnInit {
   date = new Date();
   stopsNearBy: Location[];
   geoSupported: boolean;
-  array=[1,2,3,4,5,6,7];
+  error :string;
 
   ngOnInit() {
     this.location = 'Unknown';
@@ -27,8 +27,7 @@ export class RutetiderComponent implements OnInit {
     this.stopNumber = 1;
     this.stopsNearBy = [];
     this.geoSupported = true;
-    
-
+    this.error="none";
 
 
   }
@@ -57,6 +56,21 @@ export class RutetiderComponent implements OnInit {
   private handleError(error){
     if(error.code==1){
       this.geoSupported=false;
+
+    }
+    switch(error.code) {
+      case error.PERMISSION_DENIED:
+        this.error = "User denied the request for Geolocation."
+        break;
+      case error.POSITION_UNAVAILABLE:
+        this.error = "Location information is unavailable."
+        break;
+      case error.TIMEOUT:
+        this.error = "The request to get user location timed out."
+        break;
+      case error.UNKNOWN_ERROR:
+        this.error = "An unknown error occurred."
+        break;
     }
   }
 
