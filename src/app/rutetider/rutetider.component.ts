@@ -46,20 +46,21 @@ export class RutetiderComponent implements OnInit {
         this.stopsNearBy.push(location.properties);
       }
       //sort array by distance
-      this.stopsNearBy.sort((a,b)=>(a.distance<b.distance)?-1:0);
+      this.stopsNearBy.sort((a,b)=>(a['distance']<b['distance'])?-1:0);
 
       //find type
       for(let stop of this.stopsNearBy){
-        stop.type="";
-        for(let type of stop.category){
+        stop['type']="";
+        for(let type of stop['category']){
           switch(type){
-            case "onstreetBus":stop.type+="Bus, ";break;
-            case "onstreetTram":stop.type+="Tram, ";break;
-            default:stop.type+="x, ";
+            case "onstreetBus":stop['type']+="Bus, ";break;
+            case "onstreetTram":stop['type']+="Tram, ";break;
+            case "metroStati":stop['type']+="Subway, ";break;
+            default:stop['type']+=type;
           }
         }
         // remove last ,
-        stop.type=(String)(stop.type).slice(0,stop.type.length-2)
+        stop['type']=(String)(stop['type']).slice(0,stop['type'].length-2)
       }
 
     });
