@@ -6,6 +6,7 @@ label{
   min-width: 3rem;
   text-align: center;
   border: 0;
+  color:black;
 }
 .list{
   display: flex;
