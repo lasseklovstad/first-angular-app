@@ -3,6 +3,7 @@ import {RutetiderService} from '../rutetider.service';
 import {Departure} from '../departure';
 import {ActivatedRoute} from '@angular/router';
 import {Location} from '@angular/common';
+import parse from 'date-fns/parse'
 
 @Component({
   selector: 'app-rutetiderdetaljer',
@@ -35,8 +36,8 @@ export class RutetiderdetaljerComponent implements OnInit{
         let idNumber = departure.serviceJourney.journeyPattern.line.id.match(/\d+/g);
         departure.bussNumber=idNumber[0];
 
-        departure.expectedArrivalTime = new Date(departure.expectedArrivalTime);
-        departure.aimedArrivalTime = new Date(departure.aimedArrivalTime);
+        departure.expectedArrivalTime = parse(departure.expectedArrivalTime);
+        departure.aimedArrivalTime = parse(departure.aimedArrivalTime);
 
         min = departure.expectedArrivalTime.getMinutes() - now.getMinutes();
         hour = departure.expectedArrivalTime.getHours() - now.getHours();
