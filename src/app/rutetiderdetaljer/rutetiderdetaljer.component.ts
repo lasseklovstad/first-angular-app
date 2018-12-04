@@ -32,12 +32,12 @@ export class RutetiderdetaljerComponent implements OnInit, OnChanges {
 // calculate actual arrival time;
         for (let departure of this.departures) {
           departure.expectedArrivalTime = new Date(departure.expectedArrivalTime);
-          departure.aimedArrivalTime=new Date(departure.aimedArrivalTime);
+          departure.aimedArrivalTime=new Date(departure.aimedArrivalTime)
 
           min = departure.expectedArrivalTime.getMinutes() - now.getMinutes();
           hour = departure.expectedArrivalTime.getHours() - now.getHours();
           if (hour == 1) {
-            departure.arrival = 60 + now.getMinutes() - departure.expectedArrivalTime.getMinutes() + 'm';
+            departure.arrival = 60 + min + 'm';
           }
           else if (min == 0 && hour == 0) {
             departure.arrival = departure.expectedArrivalTime.getSeconds() - now.getSeconds() + 's';
