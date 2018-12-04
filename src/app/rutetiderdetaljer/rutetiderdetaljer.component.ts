@@ -3,7 +3,7 @@ import {RutetiderService} from '../rutetider.service';
 import {Departure} from '../departure';
 import {ActivatedRoute} from '@angular/router';
 import {Location} from '@angular/common';
-import parse from 'date-fns/parse'
+import {parse} from 'date-fns'
 
 @Component({
   selector: 'app-rutetiderdetaljer',
