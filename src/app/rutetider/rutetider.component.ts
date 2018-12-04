@@ -35,8 +35,8 @@ export class RutetiderComponent implements OnInit {
 
   findPosition(){
 
-    if(navigator.geolocation){
-      navigator.geolocation.getCurrentPosition(this.handleLocation.bind(this),this.handleError.bind(this));
+    if(window.navigator.geolocation){
+      window.navigator.geolocation.getCurrentPosition(this.handleLocation.bind(this),this.handleError.bind(this));
     }else{
       this.geoSupported=false;
     }
