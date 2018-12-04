@@ -19,6 +19,7 @@ export class GeolocatorService {
     let params = new HttpParams()
       .append('point.lat', latitude)
       .append('layers', 'venue')
+      .append('size', '20')
       .append('point.lon', longitude);
 
 
