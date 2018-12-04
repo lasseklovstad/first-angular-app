@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {GeolocatorService} from '../geolocator.service';
 import {Position} from '../position';
-import {Observable} from 'rxjs';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-rutetider',
@@ -10,7 +10,8 @@ import {Observable} from 'rxjs';
 })
 export class RutetiderComponent implements OnInit {
 
-  constructor(private locationService: GeolocatorService) {
+  constructor(private locationService: GeolocatorService,
+  private spinner: NgxSpinnerService) {
 
   }
 
@@ -24,6 +25,7 @@ export class RutetiderComponent implements OnInit {
   selectedStop:Location;
 
   ngOnInit() {
+    this.spinner.show();
     this.location = 'Unknown';
     this.position = {latitude: 0, longitude: 0};
     this.stopNumber = 1;
@@ -70,6 +72,7 @@ export class RutetiderComponent implements OnInit {
       }
 
     });
+    this.spinner.hide();
 
   }
   private handleError(error){

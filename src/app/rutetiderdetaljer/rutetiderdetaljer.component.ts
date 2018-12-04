@@ -4,6 +4,7 @@ import {Departure} from '../departure';
 import {ActivatedRoute} from '@angular/router';
 import {Location} from '@angular/common';
 import {parse} from 'date-fns'
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-rutetiderdetaljer',
@@ -19,10 +20,12 @@ export class RutetiderdetaljerComponent implements OnInit{
   constructor(
     private ruteTiderService: RutetiderService,
     private route: ActivatedRoute,
+    private spinner:NgxSpinnerService,
     private location: Location) {
   }
 
   ngOnInit() {
+    this.spinner.show();
     let id = this.route.snapshot.paramMap.get('id');
     console.log(id);
     this.ruteTiderService.getRutetider(id).subscribe((rutetider) => {
@@ -50,7 +53,7 @@ export class RutetiderdetaljerComponent implements OnInit{
           departure.arrival = min + 'm';
         }
       }
-
+      this.spinner.hide();
 
     });
   }

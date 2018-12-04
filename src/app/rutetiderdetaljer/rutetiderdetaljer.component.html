@@ -1,4 +1,5 @@
 <button (click)="goBack()">Back</button>
+<ngx-spinner></ngx-spinner>
 <div *ngFor="let departure of departures" class="list">
     <label>{{departure.bussNumber}}</label>
     <h3>{{departure.destinationDisplay.frontText}}</h3>

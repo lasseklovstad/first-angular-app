@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { RutetiderComponent } from './rutetider/rutetider.component';
 import {HttpClientModule} from '@angular/common/http';
 import { RutetiderdetaljerComponent } from './rutetiderdetaljer/rutetiderdetaljer.component';
+import {NgxSpinnerModule} from 'ngx-spinner';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { RutetiderdetaljerComponent } from './rutetiderdetaljer/rutetiderdetalje
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
