@@ -1,15 +1,8 @@
-<h1>{{location}}</h1>
-<h1>Error: {{error}}</h1>
-<button (click)="findPosition()">Find location</button>
 <h2>{{date}}</h2>
-<p>Latitude: {{position.longitude}}</p>
-<p>Longitutde: {{position.latitude}}</p>
-
 <div *ngIf="geoSupported">
   <div *ngFor="let stop of stopsNearBy" class="list">
     <button>{{stop.name}}</button>
-    <p>{{stop.distance}}</p>
-    <p>{{stop.id}}</p>
+    <p>{{stop.type}}</p>
   </div>
 </div>
 <div *ngIf="!geoSupported">

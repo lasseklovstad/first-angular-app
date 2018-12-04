@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {GeolocatorService} from '../geolocator.service';
 import {Position} from '../position';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-rutetider',
@@ -28,27 +29,38 @@ export class RutetiderComponent implements OnInit {
     this.stopsNearBy = [];
     this.geoSupported = true;
     this.error="none";
+    navigator.geolocation.getCurrentPosition(this.handleLocation.bind(this),this.handleError.bind(this));
+    setInterval(()=>navigator.geolocation.getCurrentPosition(this.handleLocation.bind(this),this.handleError.bind(this)),10*1000);
 
 
   }
 
-  findPosition(){
 
-    if(window.navigator.geolocation){
-      window.navigator.geolocation.getCurrentPosition(this.handleLocation.bind(this),this.handleError.bind(this));
-    }else{
-      this.geoSupported=false;
-    }
-  }
 
   private handleLocation(position): void {
-    console.log(this);
+    this.date = new Date();
+    this.stopsNearBy=[];
     this.position = position.coords;
     this.locationService.getLocation(position.coords.longitude, position.coords.latitude).subscribe((response) => {
       for (let location of response.features) {
         this.stopsNearBy.push(location.properties);
       }
+      //sort array by distance
+      this.stopsNearBy.sort((a,b)=>(a.distance<b.distance)?-1:0);
 
+      //find type
+      for(let stop of this.stopsNearBy){
+        stop.type="";
+        for(let type of stop.category){
+          switch(type){
+            case "onstreetBus":stop.type+="Bus, ";break;
+            case "onstreetTram":stop.type+="Tram, ";break;
+            default:stop.type+="x, ";
+          }
+        }
+        // remove last ,
+        stop.type=(String)(stop.type).slice(0,stop.type.length-2)
+      }
 
     });
 
