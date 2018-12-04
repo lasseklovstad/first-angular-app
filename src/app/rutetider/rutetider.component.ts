@@ -21,6 +21,7 @@ export class RutetiderComponent implements OnInit {
   stopsNearBy: Location[];
   geoSupported: boolean;
   error :string;
+  selectedStop:Location;
 
   ngOnInit() {
     this.location = 'Unknown';
@@ -29,10 +30,15 @@ export class RutetiderComponent implements OnInit {
     this.stopsNearBy = [];
     this.geoSupported = true;
     this.error="none";
+
     navigator.geolocation.getCurrentPosition(this.handleLocation.bind(this),this.handleError.bind(this));
     setInterval(()=>navigator.geolocation.getCurrentPosition(this.handleLocation.bind(this),this.handleError.bind(this)),10*1000);
 
 
+  }
+
+  onSelect(stop:Location){
+    this.selectedStop=stop;
   }
 
 

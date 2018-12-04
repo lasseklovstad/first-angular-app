@@ -1,0 +1,9 @@
+<div *ngIf="stop">
+  <h1>{{stop.name}}</h1>
+  <div *ngFor="let departure of departures" class="list">
+    <label>{{departure.serviceJourney.journeyPattern.line.id}}</label>
+    <h3>{{departure.destinationDisplay.frontText}}</h3>
+    <h4>{{departure.arrival}}</h4>
+  </div>
+
+</div>
