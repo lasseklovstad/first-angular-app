@@ -70,9 +70,9 @@ export class RutetiderComponent implements OnInit {
         // remove last ,
         stop['type']=(String)(stop['type']).slice(0,stop['type'].length-2)
       }
-
+      this.spinner.hide();
     });
-    this.spinner.hide();
+
 
   }
   private handleError(error){

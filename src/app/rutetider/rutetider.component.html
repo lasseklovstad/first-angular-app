@@ -1,5 +1,5 @@
+
 <ngx-spinner></ngx-spinner>
-<div *ngIf="geoSupported">
   <div
     *ngFor="let stop of stopsNearBy"
     class="list"
@@ -9,10 +9,9 @@
     <button>{{stop.name}}</button>
     <p>{{stop.type}}</p>
   </div>
-</div>
-<div *ngIf="!geoSupported">
-  <p>Geolocation not supported by browser!</p>
-</div>
+
+
+
 
 
 
