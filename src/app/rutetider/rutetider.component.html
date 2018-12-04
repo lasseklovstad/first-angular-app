@@ -4,10 +4,8 @@
 <p>Longitutde: {{position.latitude}}</p>
 
 <div *ngIf="geoSupported">
-  <div *ngFor="let stop of stopsNearBy" class="list">
-    <button>{{stop.name}}</button>
-    <p>{{stop.distance}}</p>
-    <p>{{stop.id}}</p>
+  <div *ngFor="let stop of array" class="list">
+    <button>{{stop}}</button>
   </div>
 </div>
 <div *ngIf="!geoSupported">

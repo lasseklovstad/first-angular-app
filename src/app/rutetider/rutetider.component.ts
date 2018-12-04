@@ -15,16 +15,17 @@ export class RutetiderComponent implements OnInit {
   }
 
   location: String;
-  stoppNumber: Number;
+  stopNumber: Number;
   position: Position;
   date = new Date();
   stopsNearBy: Location[];
   geoSupported: boolean;
+  array=[1,2,3,4,5,6,7];
 
   ngOnInit() {
     this.location = 'Unknown';
     this.position = {latitude: 0, longitude: 0};
-    this.stoppNumber = 1;
+    this.stopNumber = 1;
     this.stopsNearBy = [];
     this.geoSupported = true;
     navigator.geolocation.getCurrentPosition(this.handleLocation.bind(this),this.handleError.bind(this));
