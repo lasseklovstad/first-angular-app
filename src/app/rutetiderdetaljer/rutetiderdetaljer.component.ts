@@ -1,54 +1,63 @@
 import {Component, Input, OnChanges, OnInit} from '@angular/core';
 import {RutetiderService} from '../rutetider.service';
 import {Departure} from '../departure';
+import {ActivatedRoute} from '@angular/router';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-rutetiderdetaljer',
   templateUrl: './rutetiderdetaljer.component.html',
   styleUrls: ['./rutetiderdetaljer.component.css']
 })
-export class RutetiderdetaljerComponent implements OnInit, OnChanges {
+export class RutetiderdetaljerComponent implements OnInit{
 
-  @Input() stop: Location;
+
   departures: Departure[];
 
 
-  constructor(private ruteTiderService: RutetiderService) {
+  constructor(
+    private ruteTiderService: RutetiderService,
+    private route: ActivatedRoute,
+    private location: Location) {
   }
 
   ngOnInit() {
+    let id = this.route.snapshot.paramMap.get('id');
+    console.log(id);
+    this.ruteTiderService.getRutetider(id).subscribe((rutetider) => {
+
+      this.departures = rutetider['data']['stopPlace']['estimatedCalls'];
+      let now = new Date();
+      let min: number;
+      let hour: number;
+      // calculate actual arrival time;
+      for (let departure of this.departures) {
+        let idNumber = departure.serviceJourney.journeyPattern.line.id.match(/\d+/g);
+        departure.bussNumber=idNumber[0];
+
+        departure.expectedArrivalTime = new Date(departure.expectedArrivalTime);
+        departure.aimedArrivalTime = new Date(departure.aimedArrivalTime);
+
+        min = departure.expectedArrivalTime.getMinutes() - now.getMinutes();
+        hour = departure.expectedArrivalTime.getHours() - now.getHours();
+        if (hour == 1) {
+          departure.arrival = 60 + min + 'm';
+        }
+        else if (min == 0 && hour == 0) {
+          departure.arrival = departure.expectedArrivalTime.getSeconds() - now.getSeconds() + 's';
+        } else {
+          departure.arrival = min + 'm';
+        }
+      }
 
 
+    });
   }
 
-  ngOnChanges(): void {
-    if (this.stop != null) {
-      this.ruteTiderService.getRutetider(this.stop['id']).subscribe((rutetider) => {
-
-        this.departures = rutetider['data']['stopPlace']['estimatedCalls'];
-        let now = new Date();
-        let min: number;
-        let hour: number;
-// calculate actual arrival time;
-        for (let departure of this.departures) {
-          departure.expectedArrivalTime = new Date(departure.expectedArrivalTime);
-          departure.aimedArrivalTime=new Date(departure.aimedArrivalTime)
-
-          min = departure.expectedArrivalTime.getMinutes() - now.getMinutes();
-          hour = departure.expectedArrivalTime.getHours() - now.getHours();
-          if (hour == 1) {
-            departure.arrival = 60 + min + 'm';
-          }
-          else if (min == 0 && hour == 0) {
-            departure.arrival = departure.expectedArrivalTime.getSeconds() - now.getSeconds() + 's';
-          } else {
-            departure.arrival = min + 'm';
-          }
-        }
-
-
-      });
-    }
+  goBack(){
+    this.location.back();
   }
 
 }
+
+

@@ -1,8 +1,9 @@
-<h2>{{date.toISOString()}}</h2>
+
 <div *ngIf="geoSupported">
   <div
     *ngFor="let stop of stopsNearBy"
     class="list"
+    routerLink="/location/{{stop.id}}"
     (click)="onSelect(stop)"
   >
     <button>{{stop.name}}</button>
@@ -13,7 +14,7 @@
   <p>Geolocation not supported by browser!</p>
 </div>
 
-<app-rutetiderdetaljer [stop]="selectedStop"></app-rutetiderdetaljer>
+
 
 
 

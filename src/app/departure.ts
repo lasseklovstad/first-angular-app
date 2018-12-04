@@ -4,4 +4,5 @@ export class Departure{
   arrival:string;
   aimedArrivalTime:Date;
   destinationDisplay:{frontText:string};
+  bussNumber:string;
 }

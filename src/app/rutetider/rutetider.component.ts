@@ -32,7 +32,7 @@ export class RutetiderComponent implements OnInit {
     this.error="none";
 
     navigator.geolocation.getCurrentPosition(this.handleLocation.bind(this),this.handleError.bind(this));
-    setInterval(()=>navigator.geolocation.getCurrentPosition(this.handleLocation.bind(this),this.handleError.bind(this)),10*1000);
+    //setInterval(()=>navigator.geolocation.getCurrentPosition(this.handleLocation.bind(this),this.handleError.bind(this)),10*1000);
 
 
   }
