@@ -1,16 +1,17 @@
 label{
-  background-color: crimson;
+  background-color: #ffdd59;
   padding: 0.5rem;
   margin: 0.1rem;
   font-weight: bold;
   min-width: 3rem;
   text-align: center;
+  border: 0;
 }
 .list{
   display: flex;
   justify-content: space-between;
   flex-direction: row;
-  
+
 
 
 }
@@ -25,5 +26,6 @@ button{
   min-width:4rem;
   padding:0.5rem;
   font-weight: bold;
-  background-color: lightsteelblue;
+  background-color: #ffd32a;
+  border: 0;
 }
