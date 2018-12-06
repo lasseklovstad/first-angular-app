@@ -10,7 +10,7 @@ workboxBuild.generateSW({
   runtimeCaching: [{
     urlPattern: new RegExp('https://api.entur.org/'),
     handler: 'staleWhileRevalidate',
-    
+
   }]
 }).then(() => {
   console.log("Generated Service worker")
@@ -18,7 +18,16 @@ workboxBuild.generateSW({
   console.log("Failed to generate Service worker", err)
 })
 
-//const enforce = require('express-sslify');
+
+
+
+if(process.env.NODE_ENV=='production'){
+  console.log("Enforce https");
+  const enforce = require('express-sslify');
+}else{
+  console.log("Do not enforce http");
+}
+
 
 const app = express();
 //app.use(enforce.HTTPS({trustProtoHeader:true}));
