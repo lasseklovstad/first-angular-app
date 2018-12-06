@@ -1,22 +1,9 @@
 //Install express server
 const express = require('express');
 const path = require('path');
-const workboxBuild = require('workbox-build');
 
-workboxBuild.generateSW({
-  swDest: './dist/my-first-angular/sw.js',
-  globDirectory: './dist/my-first-angular',
-  globPatterns: ['**/*.{html,js,css,ico}'],
-  runtimeCaching: [{
-    urlPattern: new RegExp('https://api.entur.org/'),
-    handler: 'staleWhileRevalidate',
 
-  }]
-}).then(() => {
-  console.log("Generated Service worker")
-}).catch(err => {
-  console.log("Failed to generate Service worker", err)
-})
+
 
 
 
