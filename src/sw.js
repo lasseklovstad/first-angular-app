@@ -6,7 +6,13 @@ if(workbox){
 
   workbox.routing.registerRoute(
     new RegExp('https://api.entur.org/'),
-    workbox.strategies.networkFirst()
+    workbox.strategies.networkFirst({
+      cacheName:'runtime-cache',
+      plugins:[new workbox.expiration.Plugin({
+        maxAgeSeconds: 24 * 60 * 60,
+      })]
+      }
+    )
   );
 }else{
   console.log("Workbox isn't supported")
