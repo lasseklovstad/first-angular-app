@@ -36,7 +36,8 @@
     "rxjs": "~6.3.3",
     "typescript": "~3.1.6",
     "workbox-build": "^3.6.3",
-    "zone.js": "~0.8.26"
+    "zone.js": "~0.8.26",
+    "workbox-cli": "^3.6.3"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.10.0",
