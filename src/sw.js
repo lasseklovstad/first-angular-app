@@ -4,12 +4,14 @@ if(workbox){
   console.log("WorkBox Works!")
   workbox.precaching.precacheAndRoute([]);
 
+  workbox.skipWaiting();
+  workbox.clientsClaim();
   workbox.routing.registerRoute(
     new RegExp('https://api.entur.org/'),
-    workbox.strategies.networkFirst({
+    new workbox.strategies.StaleWhileRevalidate({
       cacheName:'runtime-cache',
       plugins:[new workbox.expiration.Plugin({
-        maxAgeSeconds: 24 * 60 * 60,
+        maxEntries:2,
       })]
       }
     )
