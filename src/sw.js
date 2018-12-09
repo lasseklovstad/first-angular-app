@@ -7,25 +7,7 @@ if(workbox){
   workbox.skipWaiting();
   workbox.clientsClaim();
 
-  const handlerCb = ({url,event,params})=>{
-    console.log("handle post request")
-    return fetch(event.request)
-      .then((response) => {
-        return response;
-      }).then((res)=>{
-        caches.open('runtime-cache').then((cache)=>{
-          console.log("open cache")
 
-          cache.put(url,res).then(()=>{
-            console.log("added to cache")
-          })
-        })
-      })
-      .catch(err=>{
-        console.log("fecth:",err)
-      })
-
-  }
 
   workbox.routing.registerRoute(
     new RegExp('https://api.entur.org/'),
@@ -37,11 +19,7 @@ if(workbox){
       }
     )
   );
-  workbox.routing.registerRoute(
-    new RegExp('https://api.entur.org/journeyplanner/'),
-    handlerCb,
-    'POST'
-  );
+
 }else{
   console.log("Workbox isn't supported")
 }

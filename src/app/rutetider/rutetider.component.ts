@@ -63,7 +63,8 @@ export class RutetiderComponent implements OnInit {
           switch(type){
             case "onstreetBus":stop['type']+="Bus, ";break;
             case "onstreetTram":stop['type']+="Tram, ";break;
-            case "metroStati":stop['type']+="Subway, ";break;
+            case "metroStation":stop['type']+="Subway, ";break;
+            case "railStation":stop['type']+="Train, ";break;
             default:stop['type']+=type;
           }
         }
