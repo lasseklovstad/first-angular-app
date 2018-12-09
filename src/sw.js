@@ -3,7 +3,7 @@ importScripts('https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox
 if(workbox){
   console.log("WorkBox Works!")
   workbox.precaching.precacheAndRoute([]);
-  workbox.core.setLogLevel(workbox.core.LOG_LEVELS.debug);
+  workbox.setConfig({debug:true});
   workbox.skipWaiting();
   workbox.clientsClaim();
 
