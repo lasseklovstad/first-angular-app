@@ -12,7 +12,7 @@ if(workbox){
 
   workbox.routing.registerRoute(
     new RegExp('https://api.entur.org/'),
-    new workbox.strategies.StaleWhileRevalidate({
+    new workbox.strategies.networkFirst({
       cacheName:'runtime-cache',
       plugins:[new workbox.expiration.Plugin({
         maxEntries:1,
