@@ -15,7 +15,7 @@ if(workbox){
     new workbox.strategies.StaleWhileRevalidate({
       cacheName:'runtime-cache',
       plugins:[new workbox.expiration.Plugin({
-        maxEntries:2,
+        maxEntries:1,
       })]
       }
     )
