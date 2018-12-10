@@ -1,4 +1,5 @@
 <p>{{position.latitude}},{{position.longitude}}</p>
+<button (click)="refresh()">Refresh</button>
   <div
     *ngFor="let stop of stopsNearBy"
     class="list"

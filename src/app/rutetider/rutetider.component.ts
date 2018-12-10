@@ -43,6 +43,9 @@ export class RutetiderComponent implements OnInit {
     this.selectedStop=stop;
   }
 
+  refresh(){
+    navigator.geolocation.getCurrentPosition(this.handleLocation.bind(this),this.handleError.bind(this));
+  }
 
 
   private handleLocation(position): void {
