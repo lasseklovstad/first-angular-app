@@ -13,7 +13,7 @@ if(workbox){
 
   workbox.routing.registerRoute(
     new RegExp('https://api.entur.org/'),
-    new workbox.strategies.NetworkFirst()
+    new workbox.strategies.StaleWhileRevalidate()
   );
 
 }else{
