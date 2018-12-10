@@ -5,7 +5,7 @@ if(workbox){
   console.log("WorkBox Works!")
   workbox.precaching.precacheAndRoute([]);
 
-  workbox.skipWaiting();
+ // workbox.skipWaiting();
   workbox.clientsClaim();
 
 
