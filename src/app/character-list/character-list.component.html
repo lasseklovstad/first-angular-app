@@ -1,3 +1,6 @@
-<div *ngFor="let character of characterList">
-  <p>{{character.name}}</p>
+<div *ngFor="let post of postList" style="display: flex; justify-content:left;flex-direction: row ">
+  <p>{{post.userId}}</p>
+  <p>{{post.id}}</p>
+  <p>{{post.title}}</p>
+  <p>{{post.body}}</p>
 </div>

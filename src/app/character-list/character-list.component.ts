@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {CharacterServiceService} from '../character-service.service';
 import {Character} from '../models/Character';
+import {Post} from '../models/post';
 
 @Component({
   selector: 'app-character-list',
@@ -12,16 +13,15 @@ export class CharacterListComponent implements OnInit {
   constructor(private characterService: CharacterServiceService) {
   }
 
-  characterList: Character[] = [];
+  postList: Post[] = [];
 
   ngOnInit() {
     this.fetchCharacters();
-    this.characterList = [];
   }
 
   private fetchCharacters() {
-    this.characterService.getCharacters(2).subscribe(res => {
-      this.characterList.push(res);
+    this.characterService.getCharacters().subscribe(res => {
+      this.postList = res;
     });
   }
 
