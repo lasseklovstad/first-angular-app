@@ -1,1 +1,36 @@
 /* You can add global styles to this file, and also import other style files */
+button{
+  -webkit-appearance: none;
+}
+{
+  font-family:"Times New Roman",Times,serif;
+}
+
+body{
+  background-color: #485460;
+  color: #d2dae2;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 1px;
+  display: none;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  display: none;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  display: none;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar:hover {
+  background: #555;
+  display: block;
+}

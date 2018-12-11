@@ -4,7 +4,7 @@
   "scripts": {
     "postinstall": "ng build --prod",
     "ng": "ng",
-    "start": "node server.js",
+    "start": "workbox injectManifest workbox-config.js && node server.js",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -28,11 +28,15 @@
     "@angular/platform-browser-dynamic": "~7.0.0",
     "@angular/router": "~7.0.0",
     "core-js": "^2.5.4",
+    "date-fns": "^1.29.0",
     "express": "^4.16.4",
+    "express-sslify": "^1.2.0",
+    "ngx-spinner": "^6.1.2",
     "path": "^0.12.7",
     "rxjs": "~6.3.3",
     "typescript": "~3.1.6",
-    "zone.js": "~0.8.26"
+    "zone.js": "~0.8.26",
+    "workbox-cli": "^3.6.3"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.10.0",

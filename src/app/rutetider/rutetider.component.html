@@ -1,0 +1,21 @@
+<p>{{position.latitude}},{{position.longitude}}</p>
+<button routerLink="/test">Test</button>
+<button (click)="refresh()">Refresh</button>
+  <div
+    *ngFor="let stop of stopsNearBy"
+    class="list"
+    routerLink="/location/{{stop.id}}"
+    (click)="onSelect(stop)"
+  >
+    <button>{{stop.name}}</button>
+    <p>{{stop.type}}</p>
+  </div>
+
+
+
+
+
+
+
+
+
