@@ -27,14 +27,23 @@ if (workbox) {
           let request = new StorableRequest(storableRequest.url,storableRequest.requestInit).toRequest();
           fetch(request).then(()=>{
             console.log("Replay succes");
+            db.remove(row.doc);
           }).catch((err)=>{
             console.log("Replay Fail")
           })
         }
 
 
+
       }
+      db.viewCleanup();
+      db.compact().then(()=>{
+        console.log("Cleaned up IDB")
+      }).catch(()=>{
+        console.log("Failed to clean IDB")
+      })
     })
+
   })
 
 

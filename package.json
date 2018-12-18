@@ -5,7 +5,7 @@
     "postinstall": "ng build --prod",
     "ng": "ng",
     "start": "workbox injectManifest workbox-config.js && node server.js",
-    "build": "ng build && cp src/localforage.js dist/my-first-angular",
+    "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
