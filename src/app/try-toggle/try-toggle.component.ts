@@ -1,10 +1,13 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Renderer2, TemplateRef, ViewChild} from '@angular/core';
 import {Location} from '@angular/common';
 import {HttpClient} from '@angular/common/http';
+import {MatDialog, MatDialogConfig} from '@angular/material';
 
 class Image {
   file: string;
   name: string;
+  width: number;
+  height: number;
 }
 
 @Component({
@@ -17,7 +20,15 @@ export class TryToggleComponent implements OnInit {
   toggle: boolean;
   images: Image[] = [];
 
-  constructor(private location: Location, private http: HttpClient) {
+  @ViewChild('secondDialog') secondDialog: TemplateRef<any>;
+  openDialogWithTemplateRef(templateRef: TemplateRef<any>) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.autoFocus = true;
+    this.dialog.open(templateRef, dialogConfig);
+  }
+
+  constructor(private location: Location, private http: HttpClient, private render: Renderer2,
+              private dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -59,16 +70,31 @@ export class TryToggleComponent implements OnInit {
 
     const fileReader = new FileReader();
     fileReader.onload = (evt: any) => {
-
       const image = new Image();
-      image.file = evt.target.result;
       image.name = file.name;
-      this.images.push(image);
-      console.log(image);
 
-      this.http.put('/image', {image}).subscribe(res => {
-        console.log('posted Image');
-      });
+
+      const img = this.render.createElement('img');
+      this.render.setAttribute(img, 'src', evt.target.result);
+
+      img.onload = () => {
+        image.width = img.width;
+        image.height = img.height;
+
+        const elem = this.render.createElement('canvas');
+        this.render.setAttribute(elem, 'width', image.width.toString());
+        this.render.setAttribute(elem, 'height', image.height.toString());
+        const ctx = elem.getContext('2d');
+        ctx.drawImage(img, 0, 0, img.width, img.height);
+        image.file = ctx.canvas.toDataURL('image/jpeg', 1);
+        // Push compressed image to database and memory
+
+        this.images.push(image);
+        this.http.put('/image', {image}).subscribe(res => {
+          console.log('posted Image');
+        });
+      };
+
 
     };
     fileReader.readAsDataURL(file);

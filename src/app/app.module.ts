@@ -11,7 +11,7 @@ import {BrowserAnimationsModule, NoopAnimationsModule} from '@angular/platform-b
 import {
   MatBadgeModule,
   MatButtonModule,
-  MatChipsModule, MatGridListModule,
+  MatChipsModule, MatDialogModule, MatGridListModule,
   MatIconModule,
   MatListModule,
   MatProgressSpinnerModule,
@@ -38,7 +38,8 @@ import { TryToggleComponent } from './try-toggle/try-toggle.component';
     MatIconModule,
     MatToolbarModule,
     MatGridListModule,
-    MatChipsModule
+    MatChipsModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

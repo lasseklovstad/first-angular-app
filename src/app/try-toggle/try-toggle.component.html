@@ -19,9 +19,18 @@
     box-sizing: border-box;">
   <mat-list-item *ngFor="let thumb of images; let i = index;">
         <span><button mat-button (click)="openDialogWithTemplateRef(myDialog)">
-          {{thumb.name}} <img src="{{thumb.file}}" width="24px" height="24px"/>
+          {{thumb.name}} <img src="{{thumb.file}}" width="24" height="{{24*thumb.height/thumb.width}}"/>
         </button>
         </span>
+
+    <ng-template #myDialog>
+      <mat-dialog-content>
+        <img src="{{thumb.file}}"/>
+      </mat-dialog-content>
+      <mat-dialog-actions align="end">
+        <button mat-button matDialogClose color="primary">Lukk</button>
+      </mat-dialog-actions>
+    </ng-template>
 
     <mat-divider></mat-divider>
 
