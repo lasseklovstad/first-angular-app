@@ -1,8 +1,31 @@
 <button mat-raised-button color="accent" (click)="goBack()">Back</button>
 <button mat-raised-button color="primary" (click)="update()">Update</button>
-<mat-grid-list [cols]="2">
+<mat-grid-list [cols]="2" rowHeight="50">
   <mat-grid-tile>{{toggle}}</mat-grid-tile>
   <mat-grid-tile>
     <button mat-button (click)="updateToggle()">Toggle</button>
   </mat-grid-tile>
+  <mat-grid-tile [colspan]="2">
+    <input style="display: none" type="file" accept="image/*" (change)="onImageChange($event)" #fileInput>
+
+    <button mat-raised-button (click)="fileInput.click()">
+      Add
+    </button>
+  </mat-grid-tile>
+
 </mat-grid-list>
+
+<mat-list cdkScrollable style="overflow-y: scroll; height: 50vh; !important; -moz-box-sizing: border-box;
+    box-sizing: border-box;">
+  <mat-list-item *ngFor="let thumb of images; let i = index;">
+        <span><button mat-button (click)="openDialogWithTemplateRef(myDialog)">
+          {{thumb.name}} <img src="{{thumb.file}}" width="24px" height="24px"/>
+        </button>
+        </span>
+
+    <mat-divider></mat-divider>
+
+
+  </mat-list-item>
+  <mat-divider></mat-divider>
+</mat-list>

@@ -78,6 +78,49 @@ if (workbox) {
     'PUT'
   );
 
+
+  workbox.routing.registerRoute(
+    new RegExp('/image'),
+    new workbox.strategies.NetworkOnly({
+      plugins: [
+        {
+          fetchDidFail: async ({originalRequest, request, error, event}) => {
+            // No return expected.
+            // NOTE: `originalRequest` is the browser's request, `request` is the
+            // request after being passed through plugins with
+            // `requestWillFetch` callbacks, and `error` is the exception that caused
+            // the underlying `fetch()` to fail.
+            let storableRequest = await StorableRequest.fromRequest(request);
+
+            let todo = {
+              _id: new Date().toISOString(),
+              request: storableRequest.toObject(),
+            }
+            db.put(todo, function callback(err, result) {
+              if (!err) {
+                console.log('Saved failed request in IDB');
+              }
+            });
+
+          }
+        }
+
+      ]
+    }),
+    'PUT'
+  );
+
+  workbox.routing.registerRoute(
+    new RegExp('/image'),
+    new workbox.strategies.NetworkFirst(),
+    'GET'
+  );
+  workbox.routing.registerRoute(
+    new RegExp('/toggle'),
+    new workbox.strategies.NetworkFirst(),
+    'GET'
+  );
+
 } else {
   console.log("Workbox isn't supported")
 }

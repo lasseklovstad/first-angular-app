@@ -2,7 +2,7 @@
 const express = require('express');
 const path = require('path');
 const enforce = require('express-sslify');
-
+const bodyParser = require('body-parser');
 
 
 
@@ -10,8 +10,10 @@ const enforce = require('express-sslify');
 
 
 let toggle = true;
+let images = [];
 
 const app = express();
+app.use(bodyParser.json());
 //app.use(enforce.HTTPS({trustProtoHeader:true}));
 if(process.env.NODE_ENV=='production'){
   app.use(enforce.HTTPS({ trustProtoHeader: true }))
@@ -20,6 +22,16 @@ if(process.env.NODE_ENV=='production'){
 }else{
   console.log("Do not enforce http");
 }
+
+app.put('/image',(req,res)=>{
+  images.push(req.body.image);
+  res.status(200).end();
+})
+
+app.get('/image',(req,res)=>{
+  res.status(200).send(images);
+})
+
 
 app.put('/toggle',(req,res)=>{
   toggle=!toggle;
