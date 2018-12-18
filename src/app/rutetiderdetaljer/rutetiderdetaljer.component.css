@@ -1,3 +1,4 @@
+/*
 label{
   background-color: #ffdd59;
 
@@ -57,4 +58,14 @@ button{
 
 }
 
+
+*/
+
+.mat-grid-tile span{
+  width:100%;
+  display: flex;
+  justify-content: left;
+  white-space: nowrap;
+  overflow: scroll;
+}
 

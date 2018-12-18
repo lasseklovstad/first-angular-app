@@ -21,8 +21,8 @@ export class RutetiderComponent implements OnInit {
   date = new Date();
   stopsNearBy: Location[];
   geoSupported: boolean;
-  error :string;
-  selectedStop:Location;
+  error: string;
+  selectedStop: Location;
 
   ngOnInit() {
     this.spinner.show();
@@ -39,8 +39,8 @@ export class RutetiderComponent implements OnInit {
 
   }
 
-  onSelect(stop:Location){
-    this.selectedStop=stop;
+  onSelect(stop: Location) {
+    this.selectedStop = stop;
   }
 
   refresh(){

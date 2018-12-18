@@ -9,7 +9,7 @@ const enforce = require('express-sslify');
 
 
 
-
+let toggle = true;
 
 const app = express();
 //app.use(enforce.HTTPS({trustProtoHeader:true}));
@@ -20,6 +20,14 @@ if(process.env.NODE_ENV=='production'){
 }else{
   console.log("Do not enforce http");
 }
+
+app.put('/toggle',(req,res)=>{
+  toggle=!toggle;
+  res.status(200).send(toggle);
+})
+app.get('/toggle',(req,res)=>{
+  res.status(200).send(toggle);
+})
 
 // Serve only the static files form the dist directory
 app.use(express.static(__dirname + '/dist/my-first-angular'));

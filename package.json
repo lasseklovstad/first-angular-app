@@ -5,7 +5,7 @@
     "postinstall": "ng build --prod",
     "ng": "ng",
     "start": "workbox injectManifest workbox-config.js && node server.js",
-    "build": "ng build",
+    "build": "ng build && cp src/localforage.js dist/my-first-angular",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -16,7 +16,8 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "~7.0.0",
+    "@angular/animations": "^7.0.4",
+    "@angular/cdk": "^7.1.1",
     "@angular/cli": "^7.0.6",
     "@angular/common": "~7.0.0",
     "@angular/compiler": "~7.0.0",
@@ -24,6 +25,7 @@
     "@angular/core": "~7.0.0",
     "@angular/forms": "~7.0.0",
     "@angular/http": "~7.0.0",
+    "@angular/material": "^7.1.1",
     "@angular/platform-browser": "~7.0.0",
     "@angular/platform-browser-dynamic": "~7.0.0",
     "@angular/router": "~7.0.0",
@@ -31,12 +33,13 @@
     "date-fns": "^1.29.0",
     "express": "^4.16.4",
     "express-sslify": "^1.2.0",
+    "localforage": "^1.7.3",
     "ngx-spinner": "^6.1.2",
     "path": "^0.12.7",
     "rxjs": "~6.3.3",
     "typescript": "~3.1.6",
-    "zone.js": "~0.8.26",
-    "workbox-cli": "^3.6.3"
+    "workbox-cli": "^3.6.3",
+    "zone.js": "~0.8.26"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.10.0",

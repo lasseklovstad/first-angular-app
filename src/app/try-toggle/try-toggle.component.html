@@ -1,0 +1,8 @@
+<button mat-raised-button color="accent" (click)="goBack()">Back</button>
+<button mat-raised-button color="primary" (click)="update()">Update</button>
+<mat-grid-list [cols]="2">
+  <mat-grid-tile>{{toggle}}</mat-grid-tile>
+  <mat-grid-tile>
+    <button mat-button (click)="updateToggle()">Toggle</button>
+  </mat-grid-tile>
+</mat-grid-list>

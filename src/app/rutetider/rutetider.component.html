@@ -1,14 +1,32 @@
-<p>{{position.latitude}},{{position.longitude}}</p>
-<button (click)="refresh()">Refresh</button>
-  <div
+<mat-toolbar>
+  <mat-toolbar-row>
+    <button mat-raised-button color="primary" (click)="refresh()">Refresh</button>
+    <button mat-raised-button color="accent" routerLink="/tryToggle">Toggle</button>
+  </mat-toolbar-row>
+
+</mat-toolbar>
+
+
+<mat-progress-spinner *ngIf="stopsNearBy.length===0" mode="indeterminate"></mat-progress-spinner>
+<mat-action-list>
+  <mat-list-item
     *ngFor="let stop of stopsNearBy"
     class="list"
     routerLink="/location/{{stop.id}}"
     (click)="onSelect(stop)"
   >
-    <button>{{stop.name}}</button>
-    <p>{{stop.type}}</p>
-  </div>
+
+
+    <button mat-button color="secondary" style="text-align: left">{{stop.name}}</button>
+    <mat-icon *ngIf="stop.type.includes('Bus')" svgIcon="bus"></mat-icon>
+    <mat-icon *ngIf="stop.type.includes('Tram')" svgIcon="tram"></mat-icon>
+    <mat-icon *ngIf="stop.type.includes('Train')" svgIcon="train"></mat-icon>
+    <mat-icon *ngIf="stop.type.includes('Subway')" svgIcon="subway"></mat-icon>
+<mat-divider></mat-divider>
+
+  </mat-list-item>
+</mat-action-list>
+
 
 
 
