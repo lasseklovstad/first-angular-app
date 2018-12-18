@@ -21,6 +21,7 @@ export class TryToggleComponent implements OnInit {
   images: Image[] = [];
 
   @ViewChild('secondDialog') secondDialog: TemplateRef<any>;
+
   openDialogWithTemplateRef(templateRef: TemplateRef<any>) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
@@ -85,7 +86,7 @@ export class TryToggleComponent implements OnInit {
         this.render.setAttribute(elem, 'width', image.width.toString());
         this.render.setAttribute(elem, 'height', image.height.toString());
         const ctx = elem.getContext('2d');
-        ctx.drawImage(img, 0, 0, img.width, img.height);
+        ctx.drawImage(img, 0, 0, 500, 500 * img.height / img.width);
         image.file = ctx.canvas.toDataURL('image/jpeg', 1);
         // Push compressed image to database and memory
 
