@@ -1,4 +1,4 @@
-import {Component, OnInit, Renderer2, TemplateRef, ViewChild} from '@angular/core';
+import {Component, HostListener, OnInit, Renderer2, TemplateRef, ViewChild} from '@angular/core';
 import {Location} from '@angular/common';
 import {HttpClient} from '@angular/common/http';
 import {MatDialog, MatDialogConfig} from '@angular/material';
@@ -19,13 +19,24 @@ export class TryToggleComponent implements OnInit {
 
   toggle: boolean;
   images: Image[] = [];
+  compressionWidth = 500;
+  screenWidth = null;
+  screenHeight = null;
 
   @ViewChild('secondDialog') secondDialog: TemplateRef<any>;
 
   openDialogWithTemplateRef(templateRef: TemplateRef<any>) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
+    dialogConfig.width = this.screenWidth;
+    dialogConfig.height = this.screenHeight;
     this.dialog.open(templateRef, dialogConfig);
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event?) {
+    this.screenHeight = window.innerHeight;
+    this.screenWidth = window.innerWidth;
   }
 
   constructor(private location: Location, private http: HttpClient, private render: Renderer2,
@@ -83,11 +94,11 @@ export class TryToggleComponent implements OnInit {
         image.height = img.height;
 
         const elem = this.render.createElement('canvas');
-        this.render.setAttribute(elem, 'width', '100');
-        this.render.setAttribute(elem, 'height', (100 * img.height / img.width).toString());
+        this.render.setAttribute(elem, 'width', this.compressionWidth.toString());
+        this.render.setAttribute(elem, 'height', (this.compressionWidth * img.height / img.width).toString());
         const ctx = elem.getContext('2d');
-        ctx.drawImage(img, 0, 0, 100, 100 * img.height / img.width);
-        image.file = ctx.canvas.toDataURL('image/jpeg', 1);
+        ctx.drawImage(img, 0, 0, this.compressionWidth, this.compressionWidth * img.height / img.width);
+        image.file = ctx.canvas.toDataURL('image/jpeg', 0.7);
         // Push compressed image to database and memory
 
         this.images.push(image);
@@ -101,5 +112,13 @@ export class TryToggleComponent implements OnInit {
     fileReader.readAsDataURL(file);
 
 
+  }
+
+  plussCompression() {
+    this.compressionWidth += 50;
+  }
+
+  minusCompression() {
+    this.compressionWidth -= 50;
   }
 }

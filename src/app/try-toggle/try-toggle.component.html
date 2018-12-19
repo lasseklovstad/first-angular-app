@@ -1,9 +1,10 @@
 <button mat-raised-button color="accent" (click)="goBack()">Back</button>
 <button mat-raised-button color="primary" (click)="update()">Update</button>
 <mat-grid-list [cols]="2" rowHeight="50">
-  <mat-grid-tile>{{toggle}}</mat-grid-tile>
+  <mat-grid-tile>Img width: {{compressionWidth}}</mat-grid-tile>
   <mat-grid-tile>
-    <button mat-button (click)="updateToggle()">Toggle</button>
+    <button mat-button (click)="minusCompression()">-</button>
+    <button mat-button (click)="plussCompression()">+</button>
   </mat-grid-tile>
   <mat-grid-tile [colspan]="2">
     <input style="display: none" type="file" accept="image/*" (change)="onImageChange($event)" #fileInput>
