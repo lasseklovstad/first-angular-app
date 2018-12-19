@@ -18,6 +18,7 @@ import {
   MatToolbarModule
 } from '@angular/material';
 import { TryToggleComponent } from './try-toggle/try-toggle.component';
+import {PinchZoomModule} from 'ngx-pinch-zoom';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { TryToggleComponent } from './try-toggle/try-toggle.component';
     MatToolbarModule,
     MatGridListModule,
     MatChipsModule,
-    MatDialogModule
+    MatDialogModule,
+    PinchZoomModule
   ],
   providers: [],
   bootstrap: [AppComponent]
