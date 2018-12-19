@@ -1,13 +1,18 @@
-<div *ngIf="viewImage" style="background-color: black;height: 100vh;width: 100vw;position: fixed;left: 0;top:0;display: flex;justify-content: center">
+<div *ngIf="viewImage"
+     style="background-color: black;height: 100vh;width: 100vw;
+     position: fixed;left: 0;top:0
+     ;display: flex;justify-content: center">
 
     <mat-icon svgIcon="arrow"  (click)="closeImage()"
               style="padding-left:0.5rem; padding-top:1rem;position: fixed;
               left: 0;top: 0;z-index: 1000;width: 20px;height: 20px"></mat-icon>
 
-
+  <mat-icon svgIcon="rotate"  (click)="rotate()"
+            style="position: fixed;
+              left: 50vw;top: 80vh;z-index: 1000;width: 20px;height: 20px"></mat-icon>
 
   <pinch-zoom style="width:100%;height: 100%;" >
-      <img src="{{selectedFile}}"/>
+      <img src="{{selectedImage.file}}"/>
   </pinch-zoom>
 </div>
 
@@ -33,7 +38,7 @@
   <mat-list cdkScrollable style="overflow-y: scroll; height: 50vh; !important; -moz-box-sizing: border-box;
     box-sizing: border-box;">
     <mat-list-item *ngFor="let thumb of images; let i = index;">
-        <span><button mat-button (click)="showImage(thumb.file)">
+        <span><button mat-button (click)="showImage(thumb)">
           {{thumb.name}} <img src="{{thumb.file}}" width="24" height="{{24*thumb.height/thumb.width}}"/>
         </button>
         </span>

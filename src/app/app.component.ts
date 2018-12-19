@@ -36,6 +36,10 @@ export class AppComponent {
       'arrow',
       this.domSanitizer.bypassSecurityTrustResourceUrl('../assets/arrow.svg')
     );
+    this.matIconRegistry.addSvgIcon(
+      'rotate',
+      this.domSanitizer.bypassSecurityTrustResourceUrl('../assets/rotate.svg')
+    );
 
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {

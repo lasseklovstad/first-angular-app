@@ -24,7 +24,7 @@ export class TryToggleComponent implements OnInit {
   screenWidth = null;
   screenHeight = null;
   viewImage = false;
-  selectedFile = '';
+  selectedImage: Image;
 
   @ViewChild('secondDialog') secondDialog: TemplateRef<any>;
 
@@ -75,9 +75,9 @@ export class TryToggleComponent implements OnInit {
 
   }
 
-  public showImage(file:string) {
+  public showImage(image: Image) {
     this.viewImage = true;
-    this.selectedFile=file;
+    this.selectedImage = image;
   }
 
   public closeImage() {
@@ -124,6 +124,29 @@ export class TryToggleComponent implements OnInit {
     fileReader.readAsDataURL(file);
 
 
+  }
+
+  public rotate() {
+    const img = this.render.createElement('img');
+    this.render.setAttribute(img, 'src', this.selectedImage.file);
+
+    img.onload = () => {
+      this.selectedImage.height = img.width;
+      this.selectedImage.width = img.height;
+
+      const elem = this.render.createElement('canvas');
+      this.render.setAttribute(elem, 'width', img.height);
+      this.render.setAttribute(elem, 'height', img.width);
+      const ctx = elem.getContext('2d');
+      ctx.translate(img.height / 2, img.width / 2);
+      ctx.rotate(Math.PI / 2);
+      ctx.translate(-img.width / 2, -img.height / 2);
+      ctx.drawImage(img, 0, 0, img.width, img.height);
+      
+      this.selectedImage.file = ctx.canvas.toDataURL('image/jpeg', 1);
+      // Push compressed image to database and memory
+
+    };
   }
 
   plussCompression() {
