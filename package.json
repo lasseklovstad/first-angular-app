@@ -38,6 +38,7 @@
     "ngx-pinch-zoom": "^1.2.0",
     "ngx-spinner": "^6.1.2",
     "path": "^0.12.7",
+    "pouchdb": "^7.0.0",
     "rxjs": "~6.3.3",
     "typescript": "~3.1.6",
     "workbox-cli": "^3.6.3",

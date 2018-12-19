@@ -1,6 +1,7 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {DomSanitizer} from '@angular/platform-browser';
 import {MatIconRegistry} from '@angular/material';
+import {NavigationStart, Router} from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +13,8 @@ export class AppComponent {
 
   constructor(
     private matIconRegistry: MatIconRegistry,
-    private domSanitizer: DomSanitizer
+    private domSanitizer: DomSanitizer,
+    private router: Router
   ) {
     this.matIconRegistry.addSvgIcon(
       'bus',
@@ -30,6 +32,15 @@ export class AppComponent {
       'tram',
       this.domSanitizer.bypassSecurityTrustResourceUrl('../assets/tram1.svg')
     );
+
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationStart) {
+        window.localStorage.setItem('lastUrl', event.url);
+      }
+    });
+
+    this.router.navigate([window.localStorage.getItem('lastUrl')]);
+
   }
 
 

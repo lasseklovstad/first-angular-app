@@ -41,7 +41,8 @@ import {PinchZoomModule} from 'ngx-pinch-zoom';
     MatGridListModule,
     MatChipsModule,
     MatDialogModule,
-    PinchZoomModule
+    PinchZoomModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]
