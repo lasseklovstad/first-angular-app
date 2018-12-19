@@ -24,10 +24,10 @@
         </span>
 
     <ng-template #myDialog>
+      <mat-dialog-content>
       <pinch-zoom [autoZoomOut]="true">
-        <mat-dialog-content>
-      </pinch-zoom>
         <img src="{{thumb.file}}"/>
+      </pinch-zoom>
       </mat-dialog-content>
       <mat-dialog-actions align="end">
         <button mat-button matDialogClose color="primary">Lukk</button>
