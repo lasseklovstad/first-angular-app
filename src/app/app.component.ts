@@ -38,8 +38,10 @@ export class AppComponent {
         window.localStorage.setItem('lastUrl', event.url);
       }
     });
+    if (window.localStorage.getItem('lastUrl')) {
+      this.router.navigate([window.localStorage.getItem('lastUrl')]);
+    }
 
-    this.router.navigate([window.localStorage.getItem('lastUrl')]);
 
   }
 
