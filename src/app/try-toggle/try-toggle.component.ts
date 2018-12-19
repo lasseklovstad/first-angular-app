@@ -83,8 +83,8 @@ export class TryToggleComponent implements OnInit {
         image.height = img.height;
 
         const elem = this.render.createElement('canvas');
-        this.render.setAttribute(elem, 'width', image.width.toString());
-        this.render.setAttribute(elem, 'height', image.height.toString());
+        this.render.setAttribute(elem, 'width', '100');
+        this.render.setAttribute(elem, 'height', (100 * img.height / img.width).toString());
         const ctx = elem.getContext('2d');
         ctx.drawImage(img, 0, 0, 100, 100 * img.height / img.width);
         image.file = ctx.canvas.toDataURL('image/jpeg', 1);
