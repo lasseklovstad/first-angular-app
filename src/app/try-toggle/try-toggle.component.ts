@@ -23,6 +23,8 @@ export class TryToggleComponent implements OnInit {
   compressionWidth = 500;
   screenWidth = null;
   screenHeight = null;
+  viewImage = false;
+  selectedFile = '';
 
   @ViewChild('secondDialog') secondDialog: TemplateRef<any>;
 
@@ -71,6 +73,15 @@ export class TryToggleComponent implements OnInit {
       this.toggle = res;
     });
 
+  }
+
+  public showImage(file:string) {
+    this.viewImage = true;
+    this.selectedFile=file;
+  }
+
+  public closeImage() {
+    this.viewImage = false;
   }
 
   public update() {

@@ -32,6 +32,10 @@ export class AppComponent {
       'tram',
       this.domSanitizer.bypassSecurityTrustResourceUrl('../assets/tram1.svg')
     );
+    this.matIconRegistry.addSvgIcon(
+      'arrow',
+      this.domSanitizer.bypassSecurityTrustResourceUrl('../assets/arrow.svg')
+    );
 
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {

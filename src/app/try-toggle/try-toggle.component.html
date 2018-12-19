@@ -1,43 +1,50 @@
-<button mat-raised-button color="accent" (click)="goBack()">Back</button>
-<button mat-raised-button color="primary" (click)="update()">Update</button>
-<mat-grid-list [cols]="2" rowHeight="50">
-  <mat-grid-tile>Img width: {{compressionWidth}}</mat-grid-tile>
-  <mat-grid-tile>
-    <button mat-button (click)="minusCompression()">-</button>
-    <button mat-button (click)="plussCompression()">+</button>
-  </mat-grid-tile>
-  <mat-grid-tile [colspan]="2">
-    <input style="display: none" type="file" accept="image/*" (change)="onImageChange($event)" #fileInput>
+<div *ngIf="viewImage" style="height: 100vh;width: 100%; display: flex;justify-content: center">
 
-    <button mat-raised-button (click)="fileInput.click()">
-      Add
-    </button>
-  </mat-grid-tile>
+    <mat-icon svgIcon="arrow"  (click)="closeImage()" style=" padding:1rem;position: fixed;left: 0;top: 0;z-index: 1000"></mat-icon>
 
-</mat-grid-list>
 
-<mat-list cdkScrollable style="overflow-y: scroll; height: 50vh; !important; -moz-box-sizing: border-box;
+
+  <pinch-zoom style="width: 100%">
+      <img src="{{selectedFile}}"/>
+  </pinch-zoom>
+</div>
+
+<ng-container *ngIf="!viewImage">
+  <button mat-raised-button color="accent" (click)="goBack()">Back</button>
+  <button mat-raised-button color="primary" (click)="update()">Update</button>
+  <mat-grid-list [cols]="2" rowHeight="50">
+    <mat-grid-tile>Img width: {{compressionWidth}}</mat-grid-tile>
+    <mat-grid-tile>
+      <button mat-button (click)="minusCompression()">-</button>
+      <button mat-button (click)="plussCompression()">+</button>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="2">
+      <input style="display: none" type="file" accept="image/*" (change)="onImageChange($event)" #fileInput>
+
+      <button mat-raised-button (click)="fileInput.click()">
+        Add
+      </button>
+    </mat-grid-tile>
+
+  </mat-grid-list>
+
+  <mat-list cdkScrollable style="overflow-y: scroll; height: 50vh; !important; -moz-box-sizing: border-box;
     box-sizing: border-box;">
-  <mat-list-item *ngFor="let thumb of images; let i = index;">
-        <span><button mat-button (click)="openDialogWithTemplateRef(myDialog)">
+    <mat-list-item *ngFor="let thumb of images; let i = index;">
+        <span><button mat-button (click)="showImage(thumb.file)">
           {{thumb.name}} <img src="{{thumb.file}}" width="24" height="{{24*thumb.height/thumb.width}}"/>
         </button>
         </span>
 
-    <ng-template #myDialog>
-      <mat-dialog-content>
-      <pinch-zoom [auto-zoom-out]="true">
-        <img src="{{thumb.file}}"/>
-      </pinch-zoom>
-      </mat-dialog-content>
-      <mat-dialog-actions align="end">
-        <button mat-button matDialogClose color="primary">Lukk</button>
-      </mat-dialog-actions>
-    </ng-template>
 
+
+
+
+      <mat-divider></mat-divider>
+
+
+    </mat-list-item>
     <mat-divider></mat-divider>
+  </mat-list>
 
-
-  </mat-list-item>
-  <mat-divider></mat-divider>
-</mat-list>
+</ng-container>

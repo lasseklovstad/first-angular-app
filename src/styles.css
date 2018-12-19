@@ -38,3 +38,9 @@ body{
   display: block;
 }
 */
+
+html, body {
+  min-height: 100vh;
+  height: auto;
+
+}
