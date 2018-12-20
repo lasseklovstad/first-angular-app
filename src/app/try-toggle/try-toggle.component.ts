@@ -9,6 +9,13 @@ class Image {
   name: string;
   width: number;
   height: number;
+  //Megabyts
+  size: number;
+
+  public calcSize() {
+    //MegaBytes
+    this.size = this.file.length * 1.37 / 1024 / 1024;
+  }
 }
 
 @Component({
@@ -112,7 +119,7 @@ export class TryToggleComponent implements OnInit {
         ctx.drawImage(img, 0, 0, this.compressionWidth, this.compressionWidth * img.height / img.width);
         image.file = ctx.canvas.toDataURL('image/jpeg', 0.7);
         // Push compressed image to database and memory
-
+        image.calcSize();
         this.images.push(image);
         this.http.put('/image', {image}).subscribe(res => {
           console.log('posted Image');
@@ -142,9 +149,10 @@ export class TryToggleComponent implements OnInit {
       ctx.rotate(Math.PI / 2);
       ctx.translate(-img.width / 2, -img.height / 2);
       ctx.drawImage(img, 0, 0, img.width, img.height);
-      
-      this.selectedImage.file = ctx.canvas.toDataURL('image/jpeg', 1);
+      // use png not to reduce quality
+      this.selectedImage.file = ctx.canvas.toDataURL('image/jpeg', 0.7);
       // Push compressed image to database and memory
+      this.selectedImage.calcSize();
 
     };
   }

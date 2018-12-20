@@ -41,6 +41,7 @@
         <span><button mat-button (click)="showImage(thumb)">
           {{thumb.name}} <img src="{{thumb.file}}" width="24" height="{{24*thumb.height/thumb.width}}"/>
         </button>
+          size: {{thumb.size | number : '.1-2'}} MB
         </span>
 
 
