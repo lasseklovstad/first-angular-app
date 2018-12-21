@@ -51,7 +51,7 @@ export class AppComponent {
     if (window.localStorage.getItem('lastUrl')) {
       this.router.navigate([window.localStorage.getItem('lastUrl')]);
     }
-    navigator.serviceWorker.controller.postMessage('replayRequests');
+    // navigator.serviceWorker.controller.postMessage('replayRequests');
   }
 
 

@@ -6,7 +6,7 @@ importScripts('https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox
 // Use PouchDB to manage IDB and store the requestbody as arraybuffers instead of Blobs.
 // When blobs are supported on iOS this should be removed
 // Should we use another library for IDB??
-const iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+const iOS = /iPad|iPhone|iPod/.test(navigator.userAgent);//&& !window.MSStream;
 if(iOS){
   importScripts('https://cdn.jsdelivr.net/npm/pouchdb@7.0.0/dist/pouchdb.min.js')
   const db = new PouchDB('todos');
