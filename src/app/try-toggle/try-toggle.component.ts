@@ -28,29 +28,13 @@ export class TryToggleComponent implements OnInit {
   toggle: boolean;
   images: Image[] = [];
   compressionWidth = 500;
-  screenWidth = null;
-  screenHeight = null;
+
   viewImage = false;
   selectedImage: Image;
 
-  @ViewChild('secondDialog') secondDialog: TemplateRef<any>;
 
-  openDialogWithTemplateRef(templateRef: TemplateRef<any>) {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.autoFocus = true;
-    dialogConfig.width = this.screenWidth;
-    dialogConfig.height = this.screenHeight;
-    this.dialog.open(templateRef, dialogConfig);
-  }
 
-  @HostListener('window:resize', ['$event'])
-  onResize(event?) {
-    this.screenHeight = window.innerHeight;
-    this.screenWidth = window.innerWidth;
-  }
-
-  constructor(private location: Location, private http: HttpClient, private render: Renderer2,
-              private dialog: MatDialog) {
+  constructor(private location: Location, private http: HttpClient, private render: Renderer2) {
   }
 
   ngOnInit() {

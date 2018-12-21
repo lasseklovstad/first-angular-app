@@ -41,6 +41,8 @@ export class AppComponent {
       this.domSanitizer.bypassSecurityTrustResourceUrl('../assets/rotate.svg')
     );
 
+
+    // For iOS: iOS doesn't save the PWA last state.
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
         window.localStorage.setItem('lastUrl', event.url);
@@ -49,8 +51,7 @@ export class AppComponent {
     if (window.localStorage.getItem('lastUrl')) {
       this.router.navigate([window.localStorage.getItem('lastUrl')]);
     }
-
-
+    navigator.serviceWorker.controller.postMessage('replayRequests');
   }
 
 
