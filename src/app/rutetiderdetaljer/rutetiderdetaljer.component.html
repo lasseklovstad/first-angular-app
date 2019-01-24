@@ -1,18 +1,19 @@
 <button mat-raised-button color="accent" (click)="goBack()">Back</button>
 <button mat-raised-button color="primary" (click)="refresh()">Refresh</button>
 <mat-progress-spinner *ngIf="departures==undefined" mode="indeterminate"></mat-progress-spinner>
-<mat-grid-list rowHeight="50" cols="5" *ngFor="let departure of departures" >
-<mat-grid-tile [colspan]="1">
-  <mat-chip color="primary" selected style="width: 30%;text-align: center;padding: 5%">{{departure.bussNumber}}</mat-chip>
-</mat-grid-tile>
+<mat-grid-list rowHeight="50" cols="5" *ngFor="let departure of departures">
+  <mat-grid-tile [colspan]="1">
+    <mat-chip color="primary" selected style="width: 30%;text-align: center;padding: 5%">{{departure.bussNumber}}
+    </mat-chip>
+  </mat-grid-tile>
   <mat-grid-tile [colspan]="2">
     <span>{{departure.destinationDisplay.frontText}}</span>
   </mat-grid-tile>
 
-<mat-grid-tile [colspan]="2">
-  <span>{{departure.arrival}}</span>
-</mat-grid-tile>
-  <mat-divider ></mat-divider>
+  <mat-grid-tile [colspan]="2">
+    <span>{{departure.arrival}}</span>
+  </mat-grid-tile>
+  <mat-divider></mat-divider>
 
 
 </mat-grid-list>
