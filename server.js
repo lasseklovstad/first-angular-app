@@ -13,8 +13,8 @@ let toggle = true;
 let images = [];
 
 const app = express();
-app.use(bodyParser.json({limit: '50mb'}));
-app.use(bodyParser.urlencoded({limit: '50mb'}));
+app.use(bodyParser.json({limit: '500mb'}));
+app.use(bodyParser.urlencoded({limit: '500mb'}));
 
 
 //app.use(enforce.HTTPS({trustProtoHeader:true}));
