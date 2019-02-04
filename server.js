@@ -13,8 +13,8 @@ let toggle = true;
 let images = [];
 
 const app = express();
-app.use(bodyParser.json({limit: '5mb'}));
-app.use(bodyParser.urlencoded({limit: '5mb'}));
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb'}));
 
 
 //app.use(enforce.HTTPS({trustProtoHeader:true}));
@@ -27,11 +27,13 @@ if(process.env.NODE_ENV=='production'){
 }
 
 app.put('/image',(req,res)=>{
+  console.log("added image")
   images.push(req.body.image);
   res.status(200).end();
 })
 
 app.get('/image',(req,res)=>{
+  console.log("get image")
   res.status(200).send(images);
 })
 

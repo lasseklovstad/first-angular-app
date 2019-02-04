@@ -33,7 +33,6 @@ export class TryToggleComponent implements OnInit {
   selectedImage: Image;
 
 
-
   constructor(private location: Location, private http: HttpClient, private render: Renderer2) {
   }
 
@@ -87,26 +86,17 @@ export class TryToggleComponent implements OnInit {
     fileReader.onload = (evt: any) => {
       const image = new Image();
       image.name = file.name;
-
-
+      image.file = evt.target.result;
+      image.size = file.size / 1024 / 1024;
       const img = this.render.createElement('img');
       this.render.setAttribute(img, 'src', evt.target.result);
 
       img.onload = () => {
         image.width = img.width;
         image.height = img.height;
-
-        const elem = this.render.createElement('canvas');
-        this.render.setAttribute(elem, 'width', this.compressionWidth.toString());
-        this.render.setAttribute(elem, 'height', (this.compressionWidth * img.height / img.width).toString());
-        const ctx = elem.getContext('2d');
-        ctx.drawImage(img, 0, 0, this.compressionWidth, this.compressionWidth * img.height / img.width);
-        image.file = ctx.canvas.toDataURL('image/jpeg', 0.7);
-        // Push compressed image to database and memory
-        image.calcSize();
         this.images.push(image);
-        this.http.put('/image', {image}).subscribe(res => {
-          console.log('posted Image');
+        this.http.put('/image', {image}).subscribe(()=>{
+
         });
       };
 
@@ -141,11 +131,18 @@ export class TryToggleComponent implements OnInit {
     };
   }
 
-  plussCompression() {
-    this.compressionWidth += 50;
+  public select(image: Image): void {
+    this.selectedImage = image;
   }
 
-  minusCompression() {
-    this.compressionWidth -= 50;
+  public duplicate(): void {
+    const image = this.selectedImage;
+    if (this.selectedImage) {
+      this.images.push(this.selectedImage);
+      this.http.put('/image', {image}).subscribe(()=>{
+
+      });
+    }
+
   }
 }

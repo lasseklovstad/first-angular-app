@@ -29,7 +29,10 @@
       <input style="display: none" type="file" accept="image/*" (change)="onImageChange($event)" #fileInput>
 
       <button mat-raised-button (click)="fileInput.click()">
-        Add
+        Add file
+      </button>
+      <button mat-raised-button (click)="duplicate()">
+        Duplicate
       </button>
     </mat-grid-tile>
 
@@ -38,7 +41,7 @@
   <mat-list cdkScrollable style="overflow-y: scroll; height: 50vh; !important; -moz-box-sizing: border-box;
     box-sizing: border-box;">
     <mat-list-item *ngFor="let thumb of images; let i = index;">
-        <span><button mat-button (click)="showImage(thumb)">
+        <span><button mat-button (click)="select(thumb)">
           {{thumb.name}} <img src="{{thumb.file}}" width="24" height="{{24*thumb.height/thumb.width}}"/>
         </button>
           size: {{thumb.size | number : '.1-2'}} MB

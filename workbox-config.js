@@ -1,7 +1,7 @@
 module.exports = {
   "swDest": './dist/my-first-angular/sw.js',
   "globDirectory": './dist/my-first-angular',
-  "globPatterns": ['**/*.{html,js,css,ico}'],
+  "globPatterns": ['**/*.{html,js,css,ico,svg}'],
   "swSrc": "src/sw.js",
 
 };
