@@ -37,6 +37,11 @@ app.get('/image',(req,res)=>{
   res.status(200).send(images);
 })
 
+app.delete('/image',()=>{
+  this.images = [];
+  res.status(200).send(images);
+})
+
 
 app.put('/toggle',(req,res)=>{
   toggle=!toggle;

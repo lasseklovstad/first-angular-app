@@ -95,7 +95,7 @@ export class TryToggleComponent implements OnInit {
         image.width = img.width;
         image.height = img.height;
         this.images.push(image);
-        this.http.put('/image', {image}).subscribe(()=>{
+        this.http.put('/image', {image}).subscribe(() => {
 
         });
       };
@@ -139,10 +139,16 @@ export class TryToggleComponent implements OnInit {
     const image = this.selectedImage;
     if (this.selectedImage) {
       this.images.push(this.selectedImage);
-      this.http.put('/image', {image}).subscribe(()=>{
+      this.http.put('/image', {image}).subscribe(() => {
 
       });
     }
 
+  }
+
+  public delete() {
+    this.http.delete('/image').subscribe(() => {
+
+    });
   }
 }
