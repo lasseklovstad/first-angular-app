@@ -5,4 +5,5 @@ export class Departure {
   aimedArrivalTime: Date;
   destinationDisplay: { frontText: string };
   bussNumber: string;
+  quary: { id: string; publicCode: string; name: string; description: string };
 }

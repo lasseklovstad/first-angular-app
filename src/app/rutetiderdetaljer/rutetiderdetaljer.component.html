@@ -27,8 +27,15 @@
     <span>{{departure.destinationDisplay.frontText}}</span>
   </mat-grid-tile>
 
-  <mat-grid-tile [colspan]="2">
+  <mat-grid-tile [colspan]="1">
     <span>{{departure.arrival}}</span>
+  </mat-grid-tile>
+
+  <mat-grid-tile [colspan]="1">
+    <mat-icon *ngIf="departure.serviceJourney.journeyPattern.line.transportMode==='bus'" svgIcon="bus"></mat-icon>
+    <mat-icon *ngIf="departure.serviceJourney.journeyPattern.line.transportMode==='tram'" svgIcon="tram"></mat-icon>
+    <mat-icon *ngIf="departure.serviceJourney.journeyPattern.line.transportMode==='rail'" svgIcon="train"></mat-icon>
+    <mat-icon *ngIf="departure.serviceJourney.journeyPattern.line.transportMode==='metro'" svgIcon="subway"></mat-icon>
   </mat-grid-tile>
   <mat-divider></mat-divider>
 
