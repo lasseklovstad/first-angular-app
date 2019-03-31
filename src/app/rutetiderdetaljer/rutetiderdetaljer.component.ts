@@ -5,6 +5,7 @@ import {ActivatedRoute} from '@angular/router';
 import {Location} from '@angular/common';
 import {parse} from 'date-fns';
 import {NgxSpinnerService} from 'ngx-spinner';
+import * as localforage from 'localforage';
 
 @Component({
   selector: 'app-rutetiderdetaljer',
@@ -16,6 +17,8 @@ export class RutetiderdetaljerComponent implements OnInit {
 
   departures: Departure[];
   id: string;
+  name: string;
+  favorite = false;
 
   constructor(
     private ruteTiderService: RutetiderService,
@@ -25,11 +28,53 @@ export class RutetiderdetaljerComponent implements OnInit {
   }
 
 
-
   ngOnInit() {
 
     this.id = this.route.snapshot.paramMap.get('id');
     this.fetchData();
+    localforage.getItem('favorites').then((favorites: { name: string, id: string }[]) => {
+      for (const favorite of favorites) {
+        if (favorite.id === this.id) {
+          this.favorite = true;
+        }
+      }
+    });
+
+  }
+
+  public addToFavorites(): void {
+    const stop = this.route.snapshot.paramMap.get('id');
+
+    localforage.getItem('favorites').then((favorites: { name: string, id: string }[]) => {
+      let index = -1;
+      let currentIndex = 0;
+      for (const favorite of favorites) {
+        if (favorite.id === this.id) {
+          index = currentIndex;
+        }
+        currentIndex++;
+      }
+
+      if (index === -1) {
+        favorites.push({name: this.name, id: this.id});
+        localforage.setItem('favorites', favorites).then(() => {
+          this.favorite = true;
+          console.log('Add', favorites);
+        });
+
+
+      } else {
+        favorites.splice(index, 1);
+        localforage.setItem('favorites', favorites).then(() => {
+          this.favorite = false;
+          console.log('Remove', favorites);
+        });
+
+      }
+    }).catch(() => {
+      localforage.setItem('favorites', [{name: this.name, id: this.id}]);
+      this.favorite = true;
+    });
 
   }
 
@@ -42,9 +87,10 @@ export class RutetiderdetaljerComponent implements OnInit {
     this.ruteTiderService.getRutetider(this.id).subscribe((rutetider) => {
 
       this.departures = rutetider['data']['stopPlace']['estimatedCalls'];
-
-      this.calcArrival()
-      this.removeDuplicates()
+      console.log(rutetider);
+      this.name = rutetider['data']['stopPlace']['name'];
+      this.calcArrival();
+      this.removeDuplicates();
       this.spinner.hide();
 
     });
@@ -66,7 +112,7 @@ export class RutetiderdetaljerComponent implements OnInit {
       hour = departure.expectedArrivalTime.getHours() - now.getHours();
       if (hour > 0) {
         departure.arrival = hour * 60 + min + 'm';
-      } else if (min === 0 ) {
+      } else if (min === 0) {
         departure.arrival = departure.expectedArrivalTime.getSeconds() - now.getSeconds() + 's';
       } else {
         departure.arrival = min + 'm';

@@ -19,13 +19,15 @@ import {
 } from '@angular/material';
 import { TryToggleComponent } from './try-toggle/try-toggle.component';
 import {PinchZoomModule} from 'ngx-pinch-zoom';
+import { FavouriteComponent } from './favourite/favourite.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RutetiderComponent,
     RutetiderdetaljerComponent,
-    TryToggleComponent
+    TryToggleComponent,
+    FavouriteComponent
   ],
   imports: [
     BrowserModule,

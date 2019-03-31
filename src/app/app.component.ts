@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {DomSanitizer} from '@angular/platform-browser';
 import {MatIconRegistry} from '@angular/material';
 import {NavigationStart, Router} from '@angular/router';
+import * as localforage from 'localforage';
 
 @Component({
   selector: 'app-root',
@@ -22,7 +23,7 @@ export class AppComponent {
     );
     this.matIconRegistry.addSvgIcon(
       'train',
-      this.domSanitizer.bypassSecurityTrustResourceUrl('../assets/train.svg')
+      this.domSanitizer.bypassSecurityTrustResourceUrl('../assets/trainn.svg')
     );
     this.matIconRegistry.addSvgIcon(
       'subway',
@@ -40,18 +41,18 @@ export class AppComponent {
       'rotate',
       this.domSanitizer.bypassSecurityTrustResourceUrl('../assets/rotate.svg')
     );
-
-
-    // For iOS: iOS doesn't save the PWA last state.
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationStart) {
-        window.localStorage.setItem('lastUrl', event.url);
-      }
+    this.matIconRegistry.addSvgIcon(
+      'heart',
+      this.domSanitizer.bypassSecurityTrustResourceUrl('../assets/outline-favorite-24px.svg')
+    );
+    localforage.config({
+      driver      : localforage.WEBSQL, // Force WebSQL; same as using setDriver()
+      name        : 'Ruter',
+      version     : 1.0,
+      size        : 4980736, // Size of database, in bytes. WebSQL-only for now.
+      storeName   : 'ruter-favorites', // Should be alphanumeric, with underscores.
+      description : 'Save the favorite stops'
     });
-    if (window.localStorage.getItem('lastUrl')) {
-      this.router.navigate([window.localStorage.getItem('lastUrl')]);
-    }
-    // navigator.serviceWorker.controller.postMessage('replayRequests');
   }
 
 

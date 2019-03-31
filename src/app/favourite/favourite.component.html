@@ -1,0 +1,12 @@
+
+<mat-toolbar >
+  <mat-toolbar-row>
+    <button mat-stroked-button (click)="goBack()">Back</button>
+    <span style="padding-left: 20px"> Favorites</span>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-action-list *ngFor="let favorite of favorites">
+  <mat-list-item routerLink="/location/{{favorite.id}}">{{favorite.name}}</mat-list-item>
+  <mat-divider></mat-divider>
+</mat-action-list>
