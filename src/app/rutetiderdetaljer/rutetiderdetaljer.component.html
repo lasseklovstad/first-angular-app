@@ -1,11 +1,10 @@
-
 <mat-toolbar>
   <mat-toolbar-row style="display: flex;
     align-items: center;
     justify-content: space-between;">
     <button mat-stroked-button (click)="goBack()">Back</button>
-    <button mat-stroked-button  (click)="refresh()">Refresh</button>
-    <button mat-stroked-button  (click)="refresh()">
+    <button mat-stroked-button (click)="refresh()">Refresh</button>
+    <button mat-stroked-button (click)="refresh()">
       <mat-icon svgIcon="heart" [color]="favorite?'primary':'black'" (click)="addToFavorites()"></mat-icon>
     </button>
 
@@ -14,32 +13,47 @@
 
 <mat-progress-spinner *ngIf="departures==undefined" mode="indeterminate"></mat-progress-spinner>
 <mat-grid-list rowHeight="50" [cols]="1">
-  <mat-grid-tile> <span class="mat-h1" style="padding-left: 15px; padding-top: 15px">{{name}}</span></mat-grid-tile>
+  <mat-grid-tile><span class="mat-h1" style="padding-left: 15px; padding-top: 15px">{{name}}</span></mat-grid-tile>
 </mat-grid-list>
 
-<mat-grid-list rowHeight="50" cols="5" *ngFor="let departure of departures">
 
-  <mat-grid-tile [colspan]="1">
-    <mat-chip color="primary" selected style="width: 30%;text-align: center;padding: 5%">{{departure.bussNumber}}
-    </mat-chip>
-  </mat-grid-tile>
-  <mat-grid-tile [colspan]="2">
-    <span>{{departure.destinationDisplay.frontText}}</span>
-  </mat-grid-tile>
-
-  <mat-grid-tile [colspan]="1">
-    <span>{{departure.arrival}}</span>
-  </mat-grid-tile>
-
-  <mat-grid-tile [colspan]="1">
-    <mat-icon *ngIf="departure.serviceJourney.journeyPattern.line.transportMode==='bus'" svgIcon="bus"></mat-icon>
-    <mat-icon *ngIf="departure.serviceJourney.journeyPattern.line.transportMode==='tram'" svgIcon="tram"></mat-icon>
-    <mat-icon *ngIf="departure.serviceJourney.journeyPattern.line.transportMode==='rail'" svgIcon="train"></mat-icon>
-    <mat-icon *ngIf="departure.serviceJourney.journeyPattern.line.transportMode==='metro'" svgIcon="subway"></mat-icon>
-  </mat-grid-tile>
+<div *ngFor="let stop of departures;let i = index">
+  <button mat-flat-button style="width: 100%; text-align: left" (click)="showRutetider(i)">Platform {{stop.stop.publicCode}} {{stop.stop.description}}</button>
   <mat-divider></mat-divider>
+  <div *ngIf="show[i]">
+    <mat-grid-list rowHeight="50" cols="5" *ngFor="let departure of stop.departures" >
+
+      <mat-grid-tile [colspan]="1">
+        <mat-chip color="primary" selected style="width: 30%;text-align: center;padding: 5%">{{departure.bussNumber}}
+        </mat-chip>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]="2">
+        <span>{{departure.destinationDisplay.frontText}}</span>
+      </mat-grid-tile>
+
+      <mat-grid-tile [colspan]="1">
+        <span>{{departure.arrival}}</span>
+      </mat-grid-tile>
+
+      <mat-grid-tile [colspan]="1">
+        <mat-icon *ngIf="departure.serviceJourney.line.transportMode==='bus'" svgIcon="bus"></mat-icon>
+        <mat-icon *ngIf="departure.serviceJourney.line.transportMode==='tram'" svgIcon="tram"></mat-icon>
+        <mat-icon *ngIf="departure.serviceJourney.line.transportMode==='rail'"
+                  svgIcon="train"></mat-icon>
+        <mat-icon *ngIf="departure.serviceJourney.line.transportMode==='metro'"
+                  svgIcon="subway"></mat-icon>
+      </mat-grid-tile>
+      <mat-divider></mat-divider>
+    </mat-grid-list>
+  </div>
+
+</div>
 
 
-</mat-grid-list>
+
+
+
+
+
 
 

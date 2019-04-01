@@ -15,10 +15,11 @@ import * as localforage from 'localforage';
 export class RutetiderdetaljerComponent implements OnInit {
 
 
-  departures: Departure[];
+  departures: { stop: any, departures: Departure[] }[] = null;
   id: string;
   name: string;
   favorite = false;
+  show: boolean[];
 
   constructor(
     private ruteTiderService: RutetiderService,
@@ -84,72 +85,106 @@ export class RutetiderdetaljerComponent implements OnInit {
 
   fetchData() {
     this.spinner.show();
-    this.ruteTiderService.getRutetider(this.id).subscribe((rutetider) => {
 
-      this.departures = rutetider['data']['stopPlace']['estimatedCalls'];
-      console.log(rutetider);
-      this.name = rutetider['data']['stopPlace']['name'];
-      this.calcArrival();
-      this.removeDuplicates();
-      this.spinner.hide();
+    this.ruteTiderService.getStops(this.id).subscribe((response) => {
+      const stops = response['data']['stopPlace']['quays'];
+      this.name = response['data']['stopPlace'].name;
+      console.log(stops);
+      const stopsId = stops.map((stop) => {
+        return stop.id;
+      });
+      this.ruteTiderService.getRutetiderFromStops(stopsId).subscribe((rutetider) => {
+        const rutetiderAtStops = rutetider['data']['quays'];
+        console.log(rutetiderAtStops);
+        const departureAtStops = [];
+        let departure = [];
+        for (let i = 0; i < rutetiderAtStops.length; i++) {
+          departure = rutetiderAtStops[i]['estimatedCalls'];
+          departure = this.calcArrival(departure);
+          departure = this.removeDuplicates(departure);
+          if (departure.length > 0) {
+            departureAtStops.push({stop: stops[i], departures: departure});
+          }
+
+        }
+        console.log(departureAtStops);
+        this.departures = departureAtStops;
+        this.sortStops(this.departures);
+        if (!this.show) {
+          if (this.departures.length > 2) {
+            this.show = this.departures.map(() => false);
+          } else {
+            this.show = this.departures.map(() => true);
+          }
+
+        }
+        this.spinner.hide();
+      });
 
     });
+
   }
 
-  calcArrival() {
+  calcArrival(departures) {
     const now = new Date();
-    let min: number;
-    let hour: number;
     // calculate actual arrival time;
-    for (const departure of this.departures) {
-      const idNumber = departure.serviceJourney.journeyPattern.line.id.match(/\d+/g);
+    for (const departure of departures) {
+      const idNumber = departure.serviceJourney.line.id.match(/\d+/g);
       departure.bussNumber = idNumber[0];
 
-      departure.expectedArrivalTime = parse(departure.expectedArrivalTime);
-      departure.aimedArrivalTime = parse(departure.aimedArrivalTime);
+      departure.expectedDepartureTime = parse(departure.expectedDepartureTime);
+      departure.aimedDepartureTime = parse(departure.aimedDepartureTime);
 
-      min = departure.expectedArrivalTime.getMinutes() - now.getMinutes();
-      hour = departure.expectedArrivalTime.getHours() - now.getHours();
-      if (hour > 0) {
-        departure.arrival = hour * 60 + min + 'm';
-      } else if (min === 0) {
-        departure.arrival = departure.expectedArrivalTime.getSeconds() - now.getSeconds() + 's';
-      } else {
-        departure.arrival = min + 'm';
+      const diffTime = Math.abs(departure.expectedDepartureTime.getTime() - now.getTime());
+      const diffMins = Math.ceil(diffTime / (1000 * 60));
+
+      if (diffMins > 0) {
+        departure.arrival = diffMins + 'm';
       }
     }
+    return departures;
   }
 
-  removeDuplicates() {
+  removeDuplicates(departures) {
     let newArray: Departure[];
     newArray = [];
-    while (this.departures.length > 0) {
-      const departure = this.departures[0];
+    while (departures.length > 0) {
+      const departure = departures[0];
       const name1 = departure.destinationDisplay.frontText;
       let count = 1;
 
-      for (let j = 1; j < this.departures.length; j++) {
-        const name2 = this.departures[j].destinationDisplay.frontText;
+      for (let j = 1; j < departures.length; j++) {
+        const name2 = departures[j].destinationDisplay.frontText;
 
         if (name1 === name2) {
 
-          departure.arrival += ' ,' + this.departures[j].arrival;
-          this.departures.splice(j, 1);
+          departure.arrival += ' ,' + departures[j].arrival;
+          departures.splice(j, 1);
           j -= 1;
           count++;
         }
       }
-      this.departures.splice(0, 1);
+      departures.splice(0, 1);
       newArray.push(departure);
 
     }
 
-    this.departures = newArray;
+    return newArray;
 
+  }
+
+  sortStops(departures) {
+    departures.sort((a, b) => {
+      return a.stop.id.match(/\d+/g) - b.stop.id.match(/\d+/g);
+    });
   }
 
   goBack() {
     this.location.back();
+  }
+
+  public showRutetider(index: number): void {
+    this.show[index] = !this.show[index];
   }
 
 }
