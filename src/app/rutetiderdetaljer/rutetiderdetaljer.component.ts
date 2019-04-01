@@ -33,6 +33,11 @@ export class RutetiderdetaljerComponent implements OnInit {
 
     this.id = this.route.snapshot.paramMap.get('id');
     this.fetchData();
+
+    setInterval(() => {
+      this.fetchData();
+    }, 1000 * 30);
+
     localforage.getItem('favorites').then((favorites: { name: string, id: string }[]) => {
       for (const favorite of favorites) {
         if (favorite.id === this.id) {
@@ -89,13 +94,13 @@ export class RutetiderdetaljerComponent implements OnInit {
     this.ruteTiderService.getStops(this.id).subscribe((response) => {
       const stops = response['data']['stopPlace']['quays'];
       this.name = response['data']['stopPlace'].name;
-      console.log(stops);
+
       const stopsId = stops.map((stop) => {
         return stop.id;
       });
       this.ruteTiderService.getRutetiderFromStops(stopsId).subscribe((rutetider) => {
         const rutetiderAtStops = rutetider['data']['quays'];
-        console.log(rutetiderAtStops);
+
         const departureAtStops = [];
         let departure = [];
         for (let i = 0; i < rutetiderAtStops.length; i++) {
@@ -107,7 +112,7 @@ export class RutetiderdetaljerComponent implements OnInit {
           }
 
         }
-        console.log(departureAtStops);
+
         this.departures = departureAtStops;
         this.sortStops(this.departures);
         if (!this.show) {
@@ -136,10 +141,13 @@ export class RutetiderdetaljerComponent implements OnInit {
       departure.aimedDepartureTime = parse(departure.aimedDepartureTime);
 
       const diffTime = Math.abs(departure.expectedDepartureTime.getTime() - now.getTime());
-      const diffMins = Math.ceil(diffTime / (1000 * 60));
+      const diffMins = Math.floor(diffTime / (1000 * 60));
+      const diffSecs = Math.ceil(diffTime / (1000));
 
       if (diffMins > 0) {
         departure.arrival = diffMins + 'm';
+      } else {
+        departure.arrival = diffSecs + 's';
       }
     }
     return departures;
