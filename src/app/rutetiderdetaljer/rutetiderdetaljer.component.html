@@ -31,7 +31,7 @@
         <span>{{departure.destinationDisplay.frontText}}</span>
       </mat-grid-tile>
 
-      <mat-grid-tile [colspan]="1">
+      <mat-grid-tile ngClass="{{departure.realtime?'black':'red'}}" [colspan]="1">
         <span>{{departure.arrival}}</span>
       </mat-grid-tile>
 

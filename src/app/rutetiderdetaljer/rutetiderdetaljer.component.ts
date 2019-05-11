@@ -33,7 +33,6 @@ export class RutetiderdetaljerComponent implements OnInit {
 
     this.id = this.route.snapshot.paramMap.get('id');
     this.fetchData();
-
     setInterval(() => {
       this.fetchData();
     }, 1000 * 30);
