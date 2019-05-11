@@ -7,7 +7,18 @@
 </mat-toolbar>
 
 
-<mat-progress-spinner *ngIf="stopsNearBy.length===0" mode="indeterminate"></mat-progress-spinner>
+<mat-progress-spinner class="spinner" *ngIf="stopsNearBy.length===0" mode="indeterminate"></mat-progress-spinner>
+<mat-list>
+  <mat-list-item>
+    <form class="search">
+      <mat-form-field class="search">
+        <input #searchBox id="search-box" (input)="search(searchBox.value)" type="text" class="search" matInput placeholder="Sted" value="">
+      </mat-form-field>
+    </form>
+
+  </mat-list-item>
+</mat-list>
+
 <mat-action-list>
   <mat-list-item
     *ngFor="let stop of stopsNearBy"

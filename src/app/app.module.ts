@@ -11,8 +11,8 @@ import {BrowserAnimationsModule, NoopAnimationsModule} from '@angular/platform-b
 import {
   MatBadgeModule,
   MatButtonModule,
-  MatChipsModule, MatDialogModule, MatGridListModule,
-  MatIconModule,
+  MatChipsModule, MatDialogModule, MatFormFieldModule, MatGridListModule,
+  MatIconModule, MatInputModule,
   MatListModule,
   MatProgressSpinnerModule,
   MatToolbarModule
@@ -44,6 +44,9 @@ import { FavouriteComponent } from './favourite/favourite.component';
     MatChipsModule,
     MatDialogModule,
     PinchZoomModule,
+    MatFormFieldModule,
+    MatInputModule,
+    BrowserAnimationsModule
 
   ],
   providers: [],

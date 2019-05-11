@@ -1,41 +1,7 @@
-/*.list{
-  display: flex;
-  justify-content: flex-start;
-  flex-direction: row;
-  border-style: solid;
-  border-width: 0 0 1px 0;
-  padding: 0.5rem;
-
-
+.search{
+  width: 100%;
 }
-button{
-  width: 10rem;
-  margin-right: 1rem;
-  background-color: #ffdd59;
-  border:0;
-  margin-bottom: 0.1rem;
-  margin-top: 0;
-  height:2rem;
-}
-button:hover{
-  background-color: #ffc048;
-}
-p{
-  overflow: scroll;
-  white-space: nowrap;
-  width: 50%;
-  margin: 0 0 0.1rem;
-  height: 2rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-
-}
-
-
-*/
-
 button{
   width: 100%;
 }
+
