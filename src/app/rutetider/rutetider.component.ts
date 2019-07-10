@@ -25,6 +25,7 @@ export class RutetiderComponent implements OnInit {
   geoSupported: boolean;
   error: string;
   selectedStop: Location;
+  antall = 20;
 
   searchTerm: Subject<string>;
   searchTermValue = '';
@@ -55,6 +56,10 @@ export class RutetiderComponent implements OnInit {
 
   }
 
+  updateAntall(value){
+    this.antall = value;
+  }
+
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
@@ -66,7 +71,7 @@ export class RutetiderComponent implements OnInit {
     this.date = new Date();
     this.stopsNearBy = [];
     this.position = position.coords;
-    this.locationService.searchLocation(position.coords.longitude, position.coords.latitude, this.searchTermValue).subscribe((response) => {
+    this.locationService.searchLocation(position.coords.longitude, position.coords.latitude, this.searchTermValue,this.antall).subscribe((response) => {
       this.processStops(response);
     });
 
@@ -89,7 +94,7 @@ export class RutetiderComponent implements OnInit {
     this.date = new Date();
     this.stopsNearBy = [];
     this.position = position.coords;
-    this.locationService.getLocation(position.coords.longitude, position.coords.latitude).subscribe((response) => {
+    this.locationService.getLocation(position.coords.longitude, position.coords.latitude,this.antall).subscribe((response) => {
       this.processStops(response);
     });
 
